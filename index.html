@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice Truong - IT Administrator & Security Specialist</title>
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #0ea5e9; /* Sky blue */
+            --cursor-x: 0px;
+            --cursor-y: 0px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Global Mouse Gradient Background --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(
+                600px circle at var(--cursor-x) var(--cursor-y), 
+                rgba(14, 165, 233, 0.08),
+                transparent 80%
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            background: rgba(11, 17, 32, 0.85);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span { color: var(--accent); }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- Layout --- */
+        section {
+            padding: 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-left: 20px;
+        }
+
+        /* --- Hero Section --- */
+        .hero { min-height: 85vh; justify-content: center; }
+        
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(14, 165, 233, 0.1);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* --- Card Styles --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Wide Card for Experience */
+        .wide-card {
+            grid-column: 1 / -1; /* Spans full width */
+        }
+
+        .card {
+            background-color: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Spotlight Effect */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 8px;
+            padding: 1px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(14, 165, 233, 0.4),
+                transparent 40%
+            );
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        /* Typography inside cards */
+        .card h3 {
+            color: var(--text-main);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .card h4 {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .card .date {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 15px;
+            display: block;
+            font-family: monospace;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        /* Bullet points for Experience */
+        .job-details {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .job-details li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .job-details li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(14, 165, 233, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-family: monospace;
+        }
+
+        /* --- Animations --- */
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">ALICE<span>.</span></div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#certs">Certifications</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="about" class="hero hidden">
+        <p style="color: var(--accent); font-family: monospace;">Hi, my name is</p>
+        <h1>Alice Truong.</h1>
+        <h3>IT Administrator & Security Specialist.</h3>
+        <p>
+            I am an IT professional with over 2 years of experience in Helpdesk and System Administration. 
+            SAIT-trained in Information Systems Security, I specialize in troubleshooting, network infrastructure, 
+            and securing Microsoft 365 environments.
+        </p>
+        <a href="#experience" class="btn">View My Experience</a>
+    </section>
+
+    <section id="experience">
+        <h2 class="hidden">Professional Experience</h2>
+        <div class="grid" id="experience-grid">
+            
+            <div class="card wide-card hidden">
+                <h3>IT Administrator - IT Support Executive</h3>
+                <h4>403IT Solutions • Calgary</h4>
+                <span class="date">Jan 2023 — Mar 2025</span>
+                
+                <ul class="job-details">
+                    <li>Supported diverse IT environments across <strong>Windows, macOS, and Microsoft 365</strong>, managing VPNs and network infrastructure.</li>
+                    <li>Investigated complex technical issues by performing structured assessments to identify root causes and evaluate operational impact.</li>
+                    <li>Analyzed network segments and endpoint configurations to identify single points of failure (SPOFs) and security control gaps.</li>
+                    <li>Collaborated with security teams to support vulnerability scanning, endpoint protection tuning, and incident response activities.</li>
+                    <li>Managed <strong>Active Directory</strong> accounts, secure workstation deployments, and asset inventories.</li>
+                    <li>Delivered customer-first support to stakeholders, translating complex technical risks into clear, actionable explanations.</li>
+                </ul>
+
+                <div class="tech-stack">
+                    <span class="tag">Microsoft 365</span>
+                    <span class="tag">Active Directory</span>
+                    <span class="tag">Intune</span>
+                    <span class="tag">Vulnerability Scanning</span>
+                    <span class="tag">Incident Response</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="hidden">Core Competencies</h2>
+        <div class="grid" id="skills-grid">
+            
+            <div class="card hidden">
+                <h3>System Administration</h3>
+                <p>Deploying and securing endpoints, maintaining system performance, and managing user access across on-prem and cloud infrastructures.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Security Operations</h3>
+                <p>Experience with vulnerability scanning, incident response workflows, and refining security processes based on user behavior risks.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Network Support</h3>
+                <p>Troubleshooting network infrastructure, cable tracing, port verification, and understanding physical-layer dependencies.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Problem Solving</h3>
+                <p>Applying critical and analytical thinking to resolve complex technical issues without relying on intrusive or high-risk activities.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="certs">
+        <h2 class="hidden">Certifications</h2>
+        <div class="grid" id="certs-grid">
+            
+            <div class="card hidden">
+                <h3>CompTIA Security+ ce</h3>
+                <span class="date">2023 - 2026</span>
+                <p>Validated baseline skills for performing core security functions.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Certified in Cybersecurity (CC)</h3>
+                <span class="date">ISC2 • 2023 - 2026</span>
+                <p>Foundational knowledge in security concepts and business continuity.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Microsoft SC-200</h3>
+                <span class="date">Security Operations Analyst • 2023</span>
+                <p>Mitigating threats using M365 Defender and Sentinel.</p>
+            </div>
+
+            <div class="card hidden">
+                <h3>Microsoft Fundamentals</h3>
+                <span class="date">SC-900 • AZ-900 • DP-900</span>
+                <p>Security Compliance, Azure Architecture, and Data Fundamentals.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="hidden">
+        <h2>Get In Touch</h2>
+        <p style="text-align: center; max-width: 500px; margin: 0 auto 40px auto; color: var(--text-secondary);">
+            I am currently looking for new opportunities in IT Security and Administration. My inbox is always open!
+        </p>
+        <div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
+            <a href="mailto:truongbich0901@gmail.com" class="btn">Email Me</a>
+            <a href="https://www.linkedin.com/in/alicetruong0901/" target="_blank" class="btn">LinkedIn</a>
+        </div>
+    </section>
+
+    <script>
+        // 1. Mouse Tracking for Global Gradient
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+                document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+            });
+        });
+
+        // 2. Card Spotlight Logic (Applies to all cards in all grids)
+        const allCards = document.querySelectorAll('.card');
+        
+        // We attach the event listener to the body to track mouse relative to cards
+        document.body.addEventListener('mousemove', (e) => {
+            allCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 3. Scroll Animation (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
